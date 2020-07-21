@@ -1,8 +1,13 @@
-# docker-freedns
+# Docker-freedns
+Alpine Linux Docker that updates FreeDNS domains.
+
+## References
+[https://github.com/danchal/freedns](https://github.com/danchal/freedns)
+
+[https://freedns.afraid.org/](https://freedns.afraid.org/)
 
 ## Build
-    docker rm freedns --force
-    docker build --no-cache -t danchal/freedns .
+    docker build --no-cache -t danchal/freedns
 
-## Test
-    docker run -it --name freedns danchal/freedns bash
+## Run
+    $ docker run --name freedns -v /config:/usr/share/freedns:ro -d freedns
