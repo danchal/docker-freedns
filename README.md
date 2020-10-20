@@ -7,7 +7,10 @@ Alpine Linux Docker that updates FreeDNS domains.
 [https://freedns.afraid.org/](https://freedns.afraid.org/)
 
 ## Build
-    docker build --no-cache -t danchal/freedns
+    docker build --no-cache -t danchal/freedns .
 
 ## Run
-    $ docker run --name freedns -v /config:/usr/share/freedns:ro -d freedns
+    $ docker run --name freedns \
+        -v /config:/usr/share/freedns:ro \
+        -e INTERVAL_MINUTES=5 \
+        -d danchal/freedns

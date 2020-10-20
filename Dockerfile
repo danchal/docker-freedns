@@ -7,9 +7,6 @@ RUN apk update; \
     # clean up
     rm -rf /var/cache/apk/* /tmp/*
 
-# create crontab
-RUN echo '*/5  *  *  *  *    /usr/local/bin/freedns' > /etc/crontabs/root
-
 # add entrypoint file
 COPY entrypoint.sh /
 RUN  chmod +x /entrypoint.sh
@@ -21,6 +18,10 @@ RUN ln -s /config /etc/freedns
 # download the latest freedns update script
 RUN wget https://raw.githubusercontent.com/danchal/freedns/master/freedns -O /usr/local/bin/freedns; \
     chmod +x /usr/local/bin/freedns
+
+# create crontab
+ENV INTERVAL_MINUTES 5
+RUN echo "*/${INTERVAL_MINUTES}  *  *  *  *    /usr/local/bin/freedns" > /etc/crontabs/root
 
 # set build date
 RUN date >/build-date.txt
